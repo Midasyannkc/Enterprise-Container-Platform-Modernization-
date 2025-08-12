@@ -1,0 +1,69 @@
+# config/customer-cluster.yml
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: customer-prod-eks-cluster
+  region: us-east-1
+  version: "1.24"
+
+# Industry-specific node group configurations
+nodeGroups:
+  - name: retail-general-workloads
+    instanceType: m5.xlarge
+    minSize: 3
+    maxSize: 20
+    desiredCapacity: 5
+    availabilityZones: ["us-east-1a", "us-east-1b", "us-east-1c"]
+    labels:
+      workload-type: "general"
+      industry: "retail"
+    taints:
+      - key: "retail-workload"
+        value: "true"
+        effect: "NoSchedule"
+    
+  - name: cpg-batch-processing
+    instanceType: c5.2xlarge
+    minSize: 0
+    maxSize: 50
+    desiredCapacity: 2
+    spot: true  # Cost optimization for batch workloads
+    labels:
+      workload-type: "batch"
+      industry: "cpg"
+
+# Partner platform integration settings
+partnerPlatforms:
+  hashicorp:
+    vault:
+      enabled: true
+      namespace: "vault-system"
+      version: "0.22.0"
+    consul:
+      enabled: false
+      
+  gitlab:
+    agent:
+      enabled: true
+      namespace: "gitlab-agent"
+      token: "${GITLAB_AGENT_TOKEN}"
+    runner:
+      enabled: true
+      namespace: "gitlab-runner"
+      
+  datadog:
+    monitoring:
+      enabled: true
+      namespace: "datadog"
+      apiKey: "${DATADOG_API_KEY}"
+      clusterName: "customer-prod-eks"
+
+# Industry-specific configurations
+industryConfig:
+  vertical: "retail"  # Options: retail, cpg, manufacturing
+  seasonalScaling:
+    enabled: true
+    peakSeasons: ["blackfriday", "holiday", "backtoschool"]
+    scaleMultiplier: 10
+  complianceRequirements: ["PCI", "SOC2", "GDPR"]
