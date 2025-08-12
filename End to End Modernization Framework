@@ -1,0 +1,33 @@
+flowchart TB
+    subgraph "Assessment Phase"
+        A1[Container Landscape Discovery]
+        A2[Application Dependency Mapping]
+        A3[Performance Baseline Analysis]
+        A4[TCO Calculation & ROI Modeling]
+    end
+    
+    subgraph "Design Phase"
+        D1[EKS Cluster Architecture]
+        D2[Partner Tool Integration Design]
+        D3[Industry-Specific Patterns]
+        D4[Migration Strategy Planning]
+    end
+    
+    subgraph "Implementation Phase"
+        I1[EKS Cluster Provisioning]
+        I2[Partner Platform Integration]
+        I3[Application Migration Waves]
+        I4[Skills Transfer & Training]
+    end
+    
+    subgraph "Optimization Phase"
+        O1[Performance Monitoring Setup]
+        O2[Cost Optimization Tuning]
+        O3[Security Hardening]
+        O4[Operational Excellence]
+    end
+    
+    A1 --> A2 --> A3 --> A4
+    A4 --> D1 --> D2 --> D3 --> D4
+    D4 --> I1 --> I2 --> I3 --> I4
+    I4 --> O1 --> O2 --> O3 --> O4
