@@ -1,0 +1,19 @@
+EKS Production Environment:
+├── Control Plane (Managed by AWS)
+│   ├── Kubernetes API Server (Multi-AZ)
+│   ├── etcd (Highly Available)
+│   └── Cloud Controller Manager
+├── Compute Options
+│   ├── EC2 Node Groups (Spot + On-Demand)
+│   ├── Fargate Serverless Pods
+│   └── Auto Scaling Groups (ASG)
+├── Networking & Security
+│   ├── VPC CNI with Calico Network Policies
+│   ├── AWS Load Balancer Controller
+│   ├── ExternalDNS with Route53
+│   └── Pod Security Standards (PSS)
+└── Partner Platform Integration
+    ├── HashiCorp Vault (Secrets Management)
+    ├── GitLab (CI/CD Pipeline)
+    ├── Datadog (Monitoring & Observability)
+    └── Terraform (Infrastructure as Code)
